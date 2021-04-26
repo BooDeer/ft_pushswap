@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:13:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/10/27 21:38:48 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/04/26 16:40:16 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_atoi(const char *c)
 		if ((res * signe) > 2147483647)
 			return (-1);
 		else if ((res * signe) < -2147483648)
-			return (0);
+			return (-2);
 		i++;
 	}
 	return ((int)(res * signe));
