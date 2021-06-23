@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/22 20:59:25 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/23 03:18:49 by b00d33r          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
 
+int		list_length(int *list)
+{
+	int		i;
+	
+	i = -1;
+	while(list[++i])
+		;
+	return (i);
+}
 
 int		check_dup(int num, int *num_list)
 {
@@ -53,6 +62,8 @@ int		check_str(char *str)
 	int		i;
 
 	i = -1;
+	if (str[0] == '-' || str[0] == '+')
+		i++;
 	while (str[++i])
 		if (!ft_isdigit(str[i]))
 			return (1);
@@ -65,10 +76,8 @@ int		nbr_only(char **arr)
 
 	i = -1;
 	while (arr[++i])
-	{
-		if (check_str(arr[i]) || ft_atoi(arr[i]) < 0)
+		if (check_str(arr[i]) || (ft_atoi(arr[i]) == -1 && ft_strcmp(arr[i], "-1")))
 			return (1);
-	}
 	return (0);
 }
 
@@ -119,6 +128,17 @@ int		check_order(int *num_list)
 	return (0);
 }
 
+void	swap_stack(int **num_list)
+{
+	if (list_length(*num_list) > 1)
+	{
+		(*num_list)[0] = (*num_list)[0] + (*num_list)[1];
+		(*num_list)[1] = (*num_list)[0] - (*num_list)[1];
+		(*num_list)[0] = (*num_list)[0] - (*num_list)[1];
+	}
+}
+
+
 /*
 *
 *	Temporary function to test the actions.
@@ -126,13 +146,23 @@ int		check_order(int *num_list)
 *	@param action: the value of the action, it can be one of the following
 *						-	sa: 1 | sb: 2 | ss: 3 | pa: 4
 *							pb :5 | ra: 6 | rb: 7 | rr: 8
-*							rr: 9 |rra:10 | rrb:11| rrr: 12
+*							rr: 9 | rra:10| rrb:11| rrr: 12
 *
 */
 
-void	dummy_actions(int action)
-{
 
+void	dummy_actions(int action, int **num_list)
+{
+	switch (action)
+	{
+	case 1:
+		swap_stack(num_list);
+		break;
+
+	default:
+		break;
+	}
+	
 }
 
 /*
@@ -164,7 +194,8 @@ int		main(int ac, char **av)
 	//printf("%d\n", ft_atoi("0adjbajd"));
 	int	*num_list;
 	fill_list(&num_list, ac, av);
-	dummy_actions()
+	dummy_actions(1, &num_list);
+	printf("%d <=====> %d\n", num_list[0], num_list[1]);
 	if (check_order(num_list))
 		printf("The list is not ordered!\n");
 	return (0);
@@ -172,7 +203,9 @@ int		main(int ac, char **av)
 
 /*
 *
-*	This is a glossary for this project, any commentary that contains a #XXX can be found here.
+*	This is a glossary for this project,
+*	any commentary that contains a #XXX
+*	can be found here.
 *
 *	#1: Change the error message, preferably with a better function
 *
