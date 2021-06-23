@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/23 03:36:31 by b00d33r          ###   ########.fr       */
+/*   Updated: 2021/06/23 20:34:02 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
 
-int		list_length(int *list)
+int		list_length(int *list) // Not needed anymore (You must save the length from the moment you have it)
 {
 	int		i;
 	
@@ -24,14 +24,14 @@ int		list_length(int *list)
 	return (i);
 }
 
-int		check_dup(int num, int *num_list)
+int		check_dup(int num, int *num_list, int size)
 {
 	int		i;
 	int		check;
 
 	check = 0;
 	i = -1;
-	while (num_list[++i])
+	while (++i < size)
 		if (num_list[i] == num)
 		{
 			check++;
@@ -48,13 +48,13 @@ int		check_dup(int num, int *num_list)
 *	@param num_list: the list to check
 */
 
-int		check_list(int *num_list)
+int		check_list(int *num_list, int size)
 {
 	int		i;
 
 	i = -1;
-	while (num_list[++i])
-		if (check_dup(num_list[i], num_list))
+	while (++i < size)
+		if (check_dup(num_list[i], num_list, size))
 			return (1);
 	return (0);
 }
@@ -84,6 +84,15 @@ int		nbr_only(char **arr)
 	return (0);
 }
 
+void	fill_list(int *num_list, int ac, int *av)
+{
+	int		i;
+
+	//(*num_list) = (int *)malloc(sizeof(int) * ac); // the allocation happens before the call of this function
+	i = -1;
+	while (++i < ac)
+		num_list[i] = av[i];
+}
 
 /*
 *
@@ -94,23 +103,21 @@ int		nbr_only(char **arr)
 *
 */
 
-void	fill_list(int **num_list, int ac, char **av)
+void	ft_fill_list(int **num_list, int ac, char **av)
 {
 	int		i;
 
-	*num_list = (int *)malloc(sizeof(int) * ac);
+	(*num_list) = (int *)malloc(sizeof(int) * ac);
 	i = -1;
-	while (++i < ac - 1)
-		(*num_list)[i] = ft_atoi(av[i + 1]);
-	(*num_list)[i] = 0;
-	if (check_list(*num_list))
+	while (++i < ac)
+		(*num_list)[i] = ft_atoi(av[i]);
+	if (check_list(*num_list, ac))
 		printf("Error! Duplicatd argument\n"); // TODO: #1
 }
 
 /*
 *
 *	Check if the list is ordered in an incrementing manner.
-*
 */
 
 int		check_order(int *num_list)
@@ -128,9 +135,9 @@ int		check_order(int *num_list)
 	return (0);
 }
 
-void	swap_stack(int **num_list)
+void	swap_stack(int **num_list, int size)
 {
-	if (list_length(*num_list) > 1)
+	if (size > 1)
 	{
 		(*num_list)[0] = (*num_list)[0] + (*num_list)[1];
 		(*num_list)[1] = (*num_list)[0] - (*num_list)[1];
@@ -138,9 +145,25 @@ void	swap_stack(int **num_list)
 	}
 }
 
-void	push_stack(int **src, int **dst) // REACHED HERE!! -- Check if the dst/src is null/empty then realloc the dst/src and move the element ;) Good luck
+void	push_stack(t_struct *src, t_struct *dst) // TODO_HOME: Refactor the code to use less lines.
 {
-			
+	int		*tmp_a;
+	int		*tmp_b;
+
+	if (src->length > 0)
+	{
+		tmp_a = (int *)malloc(sizeof(int) * src->length - 1);
+		fill_list(tmp_a, src->length - 1, &(src->stack[1]));
+		tmp_b = (int *)malloc(sizeof(int) * dst->length + 1);
+		tmp_b[0] = src->stack[0];
+		fill_list(&(tmp_b[1]), dst->length, dst->stack);
+		free(src->stack);
+		free(dst->stack);
+		src->stack = tmp_a;
+		dst->stack = tmp_b;
+		src->length--;
+		dst->length++;
+	}
 }
 
 /*
@@ -155,18 +178,35 @@ void	push_stack(int **src, int **dst) // REACHED HERE!! -- Check if the dst/src 
 */
 
 
-void	dummy_actions(int action, int **num_list)
+void	dummy_actions(int action, t_struct *stack_a, t_struct *stack_b)
 {
 	switch (action)
 	{
 	case 1:
-		swap_stack(num_list);
+		swap_stack(&(stack_a->stack), stack_a->length);
 		break;
-
+	case 2:
+		push_stack(stack_a, stack_b);
 	default:
 		break;
 	}
 	
+}
+
+void	print_stack(t_struct a, t_struct b)
+{
+	int		i;
+
+	i = -1;
+	printf("\nStack a:\n");
+	while (++i < a.length)
+		printf("index: %d==>%d\n", i, (a.stack)[i]);
+	printf("\n=========================\n");
+	printf("\nStack b:\n");
+	i = -1;
+	while (++i < b.length)
+		printf("index: %d==>%d\n", i, (b.stack)[i]);
+	printf("\n=========================\n");
 }
 
 /*
@@ -190,7 +230,6 @@ int		main(int ac, char **av)
 {
 	(void)av;
 	(void)ac;
-	//printf("%d\n", list_length(NULL));
 
 	if (nbr_only(av + 1))
 	{
@@ -198,13 +237,20 @@ int		main(int ac, char **av)
 		return (0);	
 	}
 
-	//printf("%d\n", ft_atoi("0adjbajd"));
-	int	*num_list;
-	fill_list(&num_list, ac, av);
-	dummy_actions(1, &num_list);
-	printf("%d <=====> %d\n", num_list[0], num_list[1]);
-	if (check_order(num_list))
-		printf("The list is not ordered!\n");
+	t_struct a;
+	t_struct b;
+
+	a.length = ac -1;
+	
+	ft_fill_list(&(a.stack), a.length, (av + 1));
+	ft_fill_list(&(b.stack), 0, 0);
+	dummy_actions(2, &a, &b);
+	printf("%d <=====> %d\n", (a.stack)[0], (a.stack)[1]);
+	print_stack(a, b);
+
+	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
+	//if (check_order(num_list))
+	//	printf("The list is not ordered!\n");
 	return (0);
 }
 
