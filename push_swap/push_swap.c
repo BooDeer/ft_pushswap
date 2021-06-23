@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/23 20:34:02 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/23 20:59:50 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,40 @@ void	push_stack(t_struct *src, t_struct *dst) // TODO_HOME: Refactor the code to
 	}
 }
 
+void	rotate_stack(int *num_list, int	size)
+{
+	int		i;
+	int		tmp;
+	
+	if (size < 2)
+		return ;
+	i = -1;
+	tmp = num_list[0];
+	while (++i + 1 < size)
+	{
+		num_list[i] = num_list[i] + num_list[i + 1];
+		num_list[i + 1] = num_list[i] - num_list[i + 1];
+		num_list[i] = num_list[i] - num_list[i + 1];
+	}
+}
+
+void	revrotate_stack(int	*num_list, int size)
+{
+	int		i;
+	int		tmp;
+
+	if (size < 2)
+		return ;
+	i = -1;
+	while (++i + 1 < size)
+	{
+		printf("\nBefore switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
+		tmp = num_list[i + 1];
+		num_list[i + 1] = num_list[i];
+		printf("\nAfter switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
+	}
+	num_list[0] = tmp;
+}
 /*
 *
 *	Temporary function to test the actions.
@@ -187,6 +221,10 @@ void	dummy_actions(int action, t_struct *stack_a, t_struct *stack_b)
 		break;
 	case 2:
 		push_stack(stack_a, stack_b);
+	case 3:
+		rotate_stack(stack_a->stack, stack_a->length);
+	case 4:
+		revrotate_stack(stack_a->stack, stack_a->length);
 	default:
 		break;
 	}
@@ -244,8 +282,8 @@ int		main(int ac, char **av)
 	
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
-	dummy_actions(2, &a, &b);
-	printf("%d <=====> %d\n", (a.stack)[0], (a.stack)[1]);
+	dummy_actions(4, &a, &b);
+	//printf("%d <=====> %d\n", (a.stack)[0], (a.stack)[1]);
 	print_stack(a, b);
 
 	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
