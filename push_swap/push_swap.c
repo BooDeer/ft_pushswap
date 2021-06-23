@@ -6,7 +6,7 @@
 /*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/23 03:18:49 by b00d33r          ###   ########.fr       */
+/*   Updated: 2021/06/23 03:36:31 by b00d33r          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int		list_length(int *list)
 {
 	int		i;
 	
+	if (list == NULL)
+		return (0);
 	i = -1;
 	while(list[++i])
 		;
@@ -76,7 +78,8 @@ int		nbr_only(char **arr)
 
 	i = -1;
 	while (arr[++i])
-		if (check_str(arr[i]) || (ft_atoi(arr[i]) == -1 && ft_strcmp(arr[i], "-1")))
+		if (check_str(arr[i]) || (ft_atoi(arr[i]) == -1 &&
+		ft_strcmp(arr[i], "-1")))
 			return (1);
 	return (0);
 }
@@ -98,10 +101,7 @@ void	fill_list(int **num_list, int ac, char **av)
 	*num_list = (int *)malloc(sizeof(int) * ac);
 	i = -1;
 	while (++i < ac - 1)
-	{
 		(*num_list)[i] = ft_atoi(av[i + 1]);
-		//printf("%d\n", (*num_list)[i]);
-	}
 	(*num_list)[i] = 0;
 	if (check_list(*num_list))
 		printf("Error! Duplicatd argument\n"); // TODO: #1
@@ -138,13 +138,17 @@ void	swap_stack(int **num_list)
 	}
 }
 
+void	push_stack(int **src, int **dst) // REACHED HERE!! -- Check if the dst/src is null/empty then realloc the dst/src and move the element ;) Good luck
+{
+			
+}
 
 /*
 *
 *	Temporary function to test the actions.
 *	
 *	@param action: the value of the action, it can be one of the following
-*						-	sa: 1 | sb: 2 | ss: 3 | pa: 4
+*						-	sa: 1 | pa: 4
 *							pb :5 | ra: 6 | rb: 7 | rr: 8
 *							rr: 9 | rra:10| rrb:11| rrr: 12
 *
@@ -186,11 +190,14 @@ int		main(int ac, char **av)
 {
 	(void)av;
 	(void)ac;
+	//printf("%d\n", list_length(NULL));
+
 	if (nbr_only(av + 1))
 	{
 		printf("Error!\n"); // TODO: #1
 		return (0);	
 	}
+
 	//printf("%d\n", ft_atoi("0adjbajd"));
 	int	*num_list;
 	fill_list(&num_list, ac, av);
