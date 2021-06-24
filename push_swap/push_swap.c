@@ -6,11 +6,16 @@
 /*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/24 03:18:53 by b00d33r          ###   ########.fr       */
+/*   Updated: 2021/06/24 05:03:12 by b00d33r          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
+
+void	ft_putstr(char *str)
+{
+	write(1, str, ft_strlen(str));	
+}
 
 int		list_length(int *list) // Not needed anymore (You must save the length from the moment you have it)
 {
@@ -251,6 +256,80 @@ void	print_stack(t_struct a, t_struct b)
 		printf("index: %d==>%d\n", i, (b.stack)[i]);
 	printf("\n=========================\n");
 }
+
+
+void	swap_a(t_struct *stack_a)
+{
+	swap_stack(&(stack_a->stack), stack_a->length);
+	ft_putstr("sa\n");
+}
+
+void	swap_b(t_struct *stack_b)
+{
+	swap_stack(&(stack_b->stack), stack_b->length);
+	ft_putstr("sb\n");
+}
+
+void	swap_ab(t_struct *stack_a, t_struct *stack_b)
+{
+	swap_stack(&(stack_a->stack), stack_a->length);
+	swap_stack(&(stack_b->stack), stack_b->length);
+	ft_putchar("ss\n");
+}
+
+void	push_a(t_struct *stack_b, t_struct *stack_a)
+{
+	push_stack(stack_b, stack_a);
+	ft_putchar("pa\n");
+}
+
+void	push_b(t_struct *stack_a, t_struct *stack_b)
+{
+	push_stack(stack_a, stack_b);
+	ft_putchar("pb\n");
+}
+
+void	rotate_a(t_struct *stack_a)
+{
+	rotate_stack(stack_a->stack, stack_a->stack);
+	ft_putchar("ra\n");
+}
+
+void	rotate_b(t_struct *stack_b)
+{
+	rotate_stack(stack_b->stack, stack_b->length);
+	ft_putchar("rb\n");
+}
+
+void	rotate_ab(t_struct *stack_a, t_struct *stack_b)
+{
+	rotate_stack(stack_a->stack, stack_a->length);
+	rotate_stack(stack_b->stack, stack_b->length);
+	ft_putchar("rr\n");
+}
+
+void	revrotate_a(t_struct *stack_a)
+{
+	revrotate_stack(stack_a->length, stack_a->length);
+	ft_putchar("rra\n");
+}
+
+void	revrotate_b(t_struct *stack_b)
+{
+	revrotate_stack(stack_b->length, stack_b->length);
+	ft_putchar("rrb\n");
+}
+
+void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
+{
+	revrotate_stack(stack_a->stack, stack_a->length);
+	revrotate_stack(stack_b->stack, stack_b->stack);
+	ft_putchar("rrr\n");
+}
+
+
+
+
 
 /*
 *
