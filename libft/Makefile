@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
+#    By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 19:10:52 by hboudhir          #+#    #+#              #
-#    Updated: 2021/06/23 17:05:02 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/06/24 02:06:00 by b00d33r          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ NAME	= libft.a
 
 LIB		= libft.h
 
-FLAGS	= -Wall -Werror -Wextra
+FLAGS	= #-Wall -Werror -Wextra
 
 SRC 	= get_next_line.c get_next_line_utils.c ft_memset.c ft_bzero.c ft_memcpy.c \
 		ft_memccpy.c ft_memmove.c ft_memchr.c ft_memcmp.c ft_strlen.c ft_strlcpy.c \

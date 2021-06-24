@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 12:13:56 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/04/26 16:40:16 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/24 03:09:55 by b00d33r          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_atoi(const char *c)
 		if ((res * signe) > 2147483647)
 			return (-1);
 		else if ((res * signe) < -2147483648)
-			return (-2);
+			return (-1);
 		i++;
 	}
 	return ((int)(res * signe));
