@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/23 20:59:50 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/24 03:18:53 by b00d33r          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,12 +190,17 @@ void	revrotate_stack(int	*num_list, int size)
 
 	if (size < 2)
 		return ;
-	i = -1;
-	while (++i + 1 < size)
+	i = 0;
+	tmp = num_list[0];
+	num_list[0] = num_list[size];
+	while (++i < size)
 	{
 		printf("\nBefore switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
-		tmp = num_list[i + 1];
-		num_list[i + 1] = num_list[i];
+		////////////////////
+		tmp = tmp + num_list[i];
+		num_list[i] = tmp - num_list[i];
+		tmp = tmp - num_list[i];
+		////////////////////
 		printf("\nAfter switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
 	}
 	num_list[0] = tmp;

@@ -7,4 +7,11 @@
 # include <stdio.h>
 # include <limits.h>
 # include "libft/libft.h"
+
+typedef struct s_struct
+{
+	int	length;
+	int	*stack;
+}				t_struct;
+
 #endif
