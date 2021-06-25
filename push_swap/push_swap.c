@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: b00d33r <b00d33r@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/24 05:03:12 by b00d33r          ###   ########.fr       */
+/*   Updated: 2021/06/25 19:05:24 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,39 @@ void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
 	ft_putchar("rrr\n");
 }
 
+int		find_bigger(int	*list, int size)
+{
+	int		i;
+	int		j;
 
+	j = list[0];
+	i = -1;
+	while (++i < size)
+	{
+		
+	}	
+}
+
+// =============== Ordering list starts from below ===============
+
+void	order_three(t_struct *stack_a, t_struct *stack_b)
+{
+	int		index;
+	int		big_num;
+	
+	if (stack_a->length == 3)
+	{
+		big_num	=	find_bigger(stack_a->stack, stack_a->length);	
+	}
+}
+
+void	order_list(t_struct *stack_a, t_struct *stack_b)
+{
+	if (stack_a->length <= 3)
+	{
+		order_three(stack_a, stack_b);
+	}
+}
 
 
 
@@ -350,27 +382,20 @@ void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
 
 int		main(int ac, char **av)
 {
-	(void)av;
-	(void)ac;
-
+	t_struct a;
+	t_struct b;
 	if (nbr_only(av + 1))
 	{
 		printf("Error!\n"); // TODO: #1
 		return (0);	
 	}
-
-	t_struct a;
-	t_struct b;
-
 	a.length = ac -1;
-	
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
 	dummy_actions(4, &a, &b);
-	//printf("%d <=====> %d\n", (a.stack)[0], (a.stack)[1]);
-	print_stack(a, b);
-
 	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
+	order_list(&a, &b);
+	print_stack(a, b);
 	//if (check_order(num_list))
 	//	printf("The list is not ordered!\n");
 	return (0);
