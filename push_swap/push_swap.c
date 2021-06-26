@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/25 19:05:24 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/26 16:44:11 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,7 +337,7 @@ int		find_bigger(int	*list, int size)
 	while (++i < size)
 	{
 		
-	}	
+	}
 }
 
 // =============== Ordering list starts from below ===============
