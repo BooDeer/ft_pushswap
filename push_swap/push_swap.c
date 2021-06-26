@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/26 16:44:11 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/26 18:05:33 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,34 +331,75 @@ int		find_bigger(int	*list, int size)
 {
 	int		i;
 	int		j;
+	int		index;
 
 	j = list[0];
 	i = -1;
+	index = 0;
 	while (++i < size)
-	{
-		
-	}
+		if (j < list[i])
+		{
+			j = list[i];
+			index = i;
+		}
+	return (index);
 }
 
-// =============== Ordering list starts from below ===============
+int		find_smallest(int *list, int size)
+{
+	int		i;
+	int		j;
+	int		index;
 
-void	order_three(t_struct *stack_a, t_struct *stack_b)
+	j = list[0];
+	i = -1;
+	index = 0;
+	while (++i < size)
+		if (j > list[i])
+		{
+			j = list[i];
+			index = i;
+		}
+	return (index);
+}
+// =============== Sorting list starts from below ===============
+
+void	sort_three(t_struct *stack_a, t_struct *stack_b)
 {
 	int		index;
 	int		big_num;
 	
 	if (stack_a->length == 3)
 	{
-		big_num	=	find_bigger(stack_a->stack, stack_a->length);	
+		big_num	= find_bigger(stack_a->stack, stack_a->length);
+		if (big_num < 2)
+		{
+			if (big_num == 0)
+				rotate_a(stack_a);
+			else if (big_num == 1)
+				revrotate_a(stack_a);
+		}
+	}
+	if (stack_a->stack[0] > stack_a->stack[1])
+		swap_a(stack_a);
+}
+
+void	sort_five(t_struct *stack_a, t_struct *stack_b)
+{
+	int		index;
+	
+	while (stack_a->length >= 3)
+	{
+		index = find_bigger(stack_a->stack, stack_a->length);
 	}
 }
 
 void	order_list(t_struct *stack_a, t_struct *stack_b)
 {
 	if (stack_a->length <= 3)
-	{
-		order_three(stack_a, stack_b);
-	}
+		sort_three(stack_a, stack_b);
+	else if (stack_a->length <= 5)
+		sort_five(stack_a, stack_b);
 }
 
 
@@ -392,7 +433,7 @@ int		main(int ac, char **av)
 	a.length = ac -1;
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
-	dummy_actions(4, &a, &b);
+	//dummy_actions(4, &a, &b);
 	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
 	order_list(&a, &b);
 	print_stack(a, b);
