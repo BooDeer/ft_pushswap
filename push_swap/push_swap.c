@@ -274,57 +274,57 @@ void	swap_ab(t_struct *stack_a, t_struct *stack_b)
 {
 	swap_stack(&(stack_a->stack), stack_a->length);
 	swap_stack(&(stack_b->stack), stack_b->length);
-	ft_putchar("ss\n");
+	ft_putstr("ss\n");
 }
 
 void	push_a(t_struct *stack_b, t_struct *stack_a)
 {
 	push_stack(stack_b, stack_a);
-	ft_putchar("pa\n");
+	ft_putstr("pa\n");
 }
 
 void	push_b(t_struct *stack_a, t_struct *stack_b)
 {
 	push_stack(stack_a, stack_b);
-	ft_putchar("pb\n");
+	ft_putstr("pb\n");
 }
 
 void	rotate_a(t_struct *stack_a)
 {
-	rotate_stack(stack_a->stack, stack_a->stack);
-	ft_putchar("ra\n");
+	rotate_stack(stack_a->stack, stack_a->length);
+	ft_putstr("ra\n");
 }
 
 void	rotate_b(t_struct *stack_b)
 {
 	rotate_stack(stack_b->stack, stack_b->length);
-	ft_putchar("rb\n");
+	ft_putstr("rb\n");
 }
 
 void	rotate_ab(t_struct *stack_a, t_struct *stack_b)
 {
 	rotate_stack(stack_a->stack, stack_a->length);
 	rotate_stack(stack_b->stack, stack_b->length);
-	ft_putchar("rr\n");
+	ft_putstr("rr\n");
 }
 
 void	revrotate_a(t_struct *stack_a)
 {
-	revrotate_stack(stack_a->length, stack_a->length);
-	ft_putchar("rra\n");
+	revrotate_stack(stack_a->stack, stack_a->length);
+	ft_putstr("rra\n");
 }
 
 void	revrotate_b(t_struct *stack_b)
 {
-	revrotate_stack(stack_b->length, stack_b->length);
-	ft_putchar("rrb\n");
+	revrotate_stack(stack_b->stack, stack_b->length);
+	ft_putstr("rrb\n");
 }
 
 void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
 {
 	revrotate_stack(stack_a->stack, stack_a->length);
-	revrotate_stack(stack_b->stack, stack_b->stack);
-	ft_putchar("rrr\n");
+	revrotate_stack(stack_b->stack, stack_b->length);
+	ft_putstr("rrr\n");
 }
 
 int		find_bigger(int	*list, int size)
