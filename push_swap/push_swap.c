@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: boodeer <boodeer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/26 21:20:14 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/26 23:36:34 by boodeer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ void	ft_fill_list(int **num_list, int ac, char **av)
 *	Check if the list is ordered in an incrementing manner.
 */
 
-int		check_order(int *num_list)
+int		check_order(int *num_list, int size)
 {
 	int		i;
 
 	i = -1;
-	while (num_list[++i] && num_list[i + 1])
+	while (++i < size )
 	{
 		if (num_list[i] < num_list[i + 1])
 			continue ;
@@ -249,6 +249,7 @@ void	print_stack(t_struct a, t_struct b)
 	int		i;
 
 	i = -1;
+	printf("\n=========================\n");
 	printf("\nStack a:\n");
 	while (++i < a.length)
 		printf("index: %d==>%d\n", i, (a.stack)[i]);
@@ -256,7 +257,7 @@ void	print_stack(t_struct a, t_struct b)
 	printf("\nStack b:\n");
 	i = -1;
 	while (++i < b.length)
-		printf("index: %d==>%d\n", i, (b.stack)[i]);
+		printf("index: %d==>%d ==>%d\n ", i, (b.stack)[i], b.length);
 	printf("\n=========================\n");
 }
 
@@ -387,28 +388,37 @@ void	sort_three(t_struct *stack_a, t_struct *stack_b)
 		swap_a(stack_a);
 }
 
-//void	push_index(t_struct *s_src, t_struct *s_dst, int index, int size)
-//{
-//	int		i;
-//	int		target;
+void	push_index(t_struct *s_src, t_struct *s_dst, int index, int size)
+{
+	int		i;
+	int		target;
 
-//	target = s_src[index];
-//	if (index >= (size / 2) - 1)
-//	{
-//		while (s_src[0] != target)
-				
-//	}
-//}
+	target = s_src->stack[index];
+	if (index >= (size / 2) - 1)
+	{
+		while (s_src->stack[0] != target)
+			revrotate_a(s_src);
+		push_b(s_src, s_dst);
+	}
+	else if (index < (size / 2) - 1)
+	{
+		while (s_src->stack[0] != target)
+			rotate_a(s_src);
+		push_b(s_src, s_dst);	
+	}
+}
 
 void	sort_five(t_struct *stack_a, t_struct *stack_b)
 {
 	int		index;
 	
-	while (stack_a->length >= 3)
-	{
-		index = find_bigger(stack_a->stack, stack_a->length);
-		//push_index(stack_a, stack_b, index, stack_a->length);
-	}
+	while (stack_a->length > 3)
+		push_index(stack_a, stack_b,
+		find_smallest(stack_a->stack, stack_a->length), stack_a->length);
+	sort_three(stack_a, stack_b);
+	while (stack_b->length > 0)
+		push_a(stack_b, stack_a);
+	
 }
 
 void	order_list(t_struct *stack_a, t_struct *stack_b)
@@ -423,7 +433,7 @@ void	order_list(t_struct *stack_a, t_struct *stack_b)
 
 /*
 *
-*	TODO: - read input and handle all possible input errosr.
+*	TODO: - read input and handle all possible input errors.
 *		  - Create the following actions:
 *				- sa/sb/ss
 *				- pa/pb
@@ -448,14 +458,16 @@ int		main(int ac, char **av)
 		return (0);	
 	}
 	a.length = ac -1;
+	b.length = 0;
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
-	dummy_actions(3, &a, &b);
-	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
-	//order_list(&a, &b);
+	//dummy_actions(4, &a, &b);
+	if (check_order(a.stack, a.length))
+	{
+		order_list(&a, &b);
+		//printf("The list is not ordered!\n");
+	}
 	print_stack(a, b);
-	//if (check_order(num_list))
-	//	printf("The list is not ordered!\n");
 	return (0);
 }
 
