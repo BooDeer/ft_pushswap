@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/26 18:05:33 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/26 21:20:14 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -231,10 +231,13 @@ void	dummy_actions(int action, t_struct *stack_a, t_struct *stack_b)
 		break;
 	case 2:
 		push_stack(stack_a, stack_b);
+		break;
 	case 3:
 		rotate_stack(stack_a->stack, stack_a->length);
+		break;
 	case 4:
 		revrotate_stack(stack_a->stack, stack_a->length);
+		break;
 	default:
 		break;
 	}
@@ -384,6 +387,19 @@ void	sort_three(t_struct *stack_a, t_struct *stack_b)
 		swap_a(stack_a);
 }
 
+//void	push_index(t_struct *s_src, t_struct *s_dst, int index, int size)
+//{
+//	int		i;
+//	int		target;
+
+//	target = s_src[index];
+//	if (index >= (size / 2) - 1)
+//	{
+//		while (s_src[0] != target)
+				
+//	}
+//}
+
 void	sort_five(t_struct *stack_a, t_struct *stack_b)
 {
 	int		index;
@@ -391,6 +407,7 @@ void	sort_five(t_struct *stack_a, t_struct *stack_b)
 	while (stack_a->length >= 3)
 	{
 		index = find_bigger(stack_a->stack, stack_a->length);
+		//push_index(stack_a, stack_b, index, stack_a->length);
 	}
 }
 
@@ -433,9 +450,9 @@ int		main(int ac, char **av)
 	a.length = ac -1;
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
-	//dummy_actions(4, &a, &b);
+	dummy_actions(3, &a, &b);
 	printf("%d==%d\n",ft_atoi("0"), list_length((b.stack)));
-	order_list(&a, &b);
+	//order_list(&a, &b);
 	print_stack(a, b);
 	//if (check_order(num_list))
 	//	printf("The list is not ordered!\n");
