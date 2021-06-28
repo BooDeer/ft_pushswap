@@ -6,7 +6,7 @@
 /*   By: boodeer <boodeer@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/26 23:36:34 by boodeer          ###   ########.fr       */
+/*   Updated: 2021/06/28 02:26:28 by boodeer          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,12 +421,68 @@ void	sort_five(t_struct *stack_a, t_struct *stack_b)
 	
 }
 
+void	bubble_sort(int *arr, int size)
+{
+	int		i;
+	int		j;
+	int		tmp;
+
+	i = 0;
+	j = 0;
+	while (j < size - 1)
+	{
+		while (i < size - j - 1)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				arr[i] = arr[i] + arr[i + 1];
+				arr[i + 1] = arr[i] - arr[i + 1];
+				arr[i] = arr[i] - arr[i + 1];
+			}
+			i++;
+		}
+		i = 0;
+		j++;
+	}
+	return ;
+}
+
+int		*init_arr(t_struct *stack_a)
+{
+	int		*arr;
+	
+	arr = ft_calloc(sizeof(int), stack_a->length);
+	fill_list(arr, stack_a->length, stack_a->stack);
+	bubble_sort(arr, stack_a->length);
+	return (arr);
+}
+
+void	sort_hundred(t_struct *stack_a, t_struct *stack_b)
+{
+	int		chunk;
+	int		*simple_arr;
+	int		i;
+	int		current_len;
+
+	chunk = 1;
+	simple_arr = init_arr(stack_a);
+	while (stack_a->length > 0)
+	{
+		i = -1;
+		current_len = stack_a->length;
+		while (++i < current_len)
+					
+	}
+}
+
 void	order_list(t_struct *stack_a, t_struct *stack_b)
 {
 	if (stack_a->length <= 3)
 		sort_three(stack_a, stack_b);
 	else if (stack_a->length <= 5)
 		sort_five(stack_a, stack_b);
+	else if (stack_a->length <= 100)
+		sort_hundred(stack_a, stack_b);
 }
 
 
