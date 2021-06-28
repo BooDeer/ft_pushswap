@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: boodeer <boodeer@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/28 02:26:28 by boodeer          ###   ########.fr       */
+/*   Updated: 2021/06/28 20:43:13 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -457,6 +457,46 @@ int		*init_arr(t_struct *stack_a)
 	return (arr);
 }
 
+int		chunk_cal(int len, int chunk, int length, int sign)
+{
+	int		res;
+
+	res = len * chunk;
+	if (res > (length / 2))
+		res = length / 2;
+	if (sign == -1 && res == (length / 2))
+		res -= 1;
+	return (res);
+}
+
+int		get_index(int length, int div, int chunk, int sign)
+{
+	int 	middle;
+	int		len;
+	int		ret;
+
+	middle = (length / 2) - 1;
+	len = length / div;
+	if (sign == -1)
+		ret = middle - chunk_cal(len, chunk, length, -1);
+	else
+		ret = middle + chunk_cal(length / div, chunk, length, 1);
+	return (ret);
+}
+
+void	push_chunk(t_struct *stack_a, t_struct *stack_b, int div, int chunk)
+{
+	int		left_mid;
+	int		right_mid;
+	int		middle;
+	int		nbr;
+
+	left_mid = get_index(stack_a->length, div, chunk, -1);
+	right_mid = get_index(stack_a->length, div, chunk, 1);
+	middle = stack_a->length / 2 - 1;
+	nbr =		
+}
+
 void	sort_hundred(t_struct *stack_a, t_struct *stack_b)
 {
 	int		chunk;
@@ -471,7 +511,7 @@ void	sort_hundred(t_struct *stack_a, t_struct *stack_b)
 		i = -1;
 		current_len = stack_a->length;
 		while (++i < current_len)
-					
+			push_chunk()
 	}
 }
 
