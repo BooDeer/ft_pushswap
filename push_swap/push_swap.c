@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/28 20:43:13 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/29 19:48:18 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -490,29 +490,46 @@ void	push_chunk(t_struct *stack_a, t_struct *stack_b, int div, int chunk)
 	int		right_mid;
 	int		middle;
 	int		nbr;
-
+	
 	left_mid = get_index(stack_a->length, div, chunk, -1);
 	right_mid = get_index(stack_a->length, div, chunk, 1);
 	middle = stack_a->length / 2 - 1;
-	nbr =		
+	nbr = stack_a->stack[0];
+	if ((nbr >= stack_a->arr[left_mid])
+		&& (nbr < stack_a->arr[middle]))
+	{
+		push_b(stack_a, stack_b);
+		rotate_a(stack_a);
+	}
+	else if (nbr <= stack_a->arr[right_mid]
+		&& (nbr >= stack_a->arr[middle]))
+		push_b(stack_a, stack_b);
+	else
+		rotate_a(stack_a);
 }
 
-void	sort_hundred(t_struct *stack_a, t_struct *stack_b)
+void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
+{
+	
+}
+
+void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
 {
 	int		chunk;
-	int		*simple_arr;
 	int		i;
 	int		current_len;
 
 	chunk = 1;
-	simple_arr = init_arr(stack_a);
+	stack_a->arr = init_arr(stack_a);
 	while (stack_a->length > 0)
 	{
 		i = -1;
 		current_len = stack_a->length;
 		while (++i < current_len)
-			push_chunk()
+			push_chunk(stack_a, stack_b, divisor, chunk);
+		chunk++;
 	}
+	push_chunk_back()
 }
 
 void	order_list(t_struct *stack_a, t_struct *stack_b)
@@ -522,7 +539,7 @@ void	order_list(t_struct *stack_a, t_struct *stack_b)
 	else if (stack_a->length <= 5)
 		sort_five(stack_a, stack_b);
 	else if (stack_a->length <= 100)
-		sort_hundred(stack_a, stack_b);
+		sort_hundred(stack_a, stack_b, 6);
 }
 
 
