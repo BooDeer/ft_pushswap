@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/29 20:16:05 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/06/30 19:13:48 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -534,7 +534,7 @@ void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
 			push_chunk(stack_a, stack_b, divisor, chunk);
 		chunk++;
 	}
-	push_chunk_back()
+	push_chunk_back(stack_a, stack_b);
 }
 
 void	order_list(t_struct *stack_a, t_struct *stack_b)
