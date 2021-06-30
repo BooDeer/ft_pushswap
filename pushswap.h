@@ -12,6 +12,7 @@ typedef struct s_struct
 {
 	int	length;
 	int	*stack;
+	int	*arr;
 }				t_struct;
 
 #endif
