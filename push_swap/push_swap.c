@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/06/30 19:13:48 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/01 06:00:13 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -508,13 +508,46 @@ void	push_chunk(t_struct *stack_a, t_struct *stack_b, int div, int chunk)
 		rotate_a(stack_a);
 }
 
+int		get_pos(int *arr, int n, int size)
+{
+	int		i;
+	
+	i = -1;
+	while (i++ < size)
+		if (n == arr[i])
+			return(i);
+	return (i);
+}
+
+int		find_biggest(int *arr, int size)
+{
+	int		n;
+	int		i;
+
+	n = arr[0];
+	i = -1;
+	while (++i <= size)
+		if (n < arr[i])
+			n = arr[i];
+	return (n);
+}
+
+void	push_back(t_struct *stack_a, t_struct *stack_b, int n)
+{
+	while (1)
+	{
+		if ()
+	}
+}
+
 void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 {
 	int		nbr;
 
 	while (stack_b->length > 0)
 	{
-		
+		nbr = get_pos(stack_a->arr, find_bigger(stack_a->length, stack_a->length), stack_a->length);
+		push_back()
 	}
 }
 
