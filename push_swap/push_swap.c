@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/01 06:00:13 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/01 09:51:16 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,9 @@ void	revrotate_stack(int	*num_list, int size)
 	num_list[0] = num_list[size];
 	while (++i < size)
 	{
-		printf("\nBefore switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
-		////////////////////
 		tmp = tmp + num_list[i];
 		num_list[i] = tmp - num_list[i];
 		tmp = tmp - num_list[i];
-		////////////////////
-		printf("\nAfter switch:\n*  %d <===> %d\n", num_list[i], num_list[i + 1]);
 	}
 	num_list[0] = tmp;
 }
@@ -257,7 +253,7 @@ void	print_stack(t_struct a, t_struct b)
 	printf("\nStack b:\n");
 	i = -1;
 	while (++i < b.length)
-		printf("index: %d==>%d ==>%d\n ", i, (b.stack)[i], b.length);
+		printf("index: %d==>%d\n ", i, (b.stack)[i]);
 	printf("\n=========================\n");
 }
 
@@ -464,7 +460,7 @@ int		chunk_cal(int len, int chunk, int length, int sign)
 	res = len * chunk;
 	if (res > (length / 2))
 		res = length / 2;
-	if (sign == -1 && res == (length / 2))
+	if (sign == 1 && res == length / 2 && (length % 2) == 0)
 		res -= 1;
 	return (res);
 }
@@ -475,7 +471,7 @@ int		get_index(int length, int div, int chunk, int sign)
 	int		len;
 	int		ret;
 
-	middle = (length / 2) - 1;
+	middle = (length / 2);
 	len = length / div;
 	if (sign == -1)
 		ret = middle - chunk_cal(len, chunk, length, -1);
@@ -484,22 +480,23 @@ int		get_index(int length, int div, int chunk, int sign)
 	return (ret);
 }
 
-void	push_chunk(t_struct *stack_a, t_struct *stack_b, int div, int chunk)
+void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,int div, int chunk)
 {
 	int		left_mid;
 	int		right_mid;
 	int		middle;
 	int		nbr;
 	
-	left_mid = get_index(stack_a->length, div, chunk, -1);
-	right_mid = get_index(stack_a->length, div, chunk, 1);
-	middle = stack_a->length / 2 - 1;
+	left_mid = get_index(length, div, chunk, -1);
+	right_mid = get_index(length, div, chunk, 1);
+	middle = length / 2;
 	nbr = stack_a->stack[0];
+	printf("%d===%d===%d\n", middle, left_mid, right_mid);
 	if ((nbr >= stack_a->arr[left_mid])
 		&& (nbr < stack_a->arr[middle]))
 	{
 		push_b(stack_a, stack_b);
-		rotate_a(stack_a);
+		rotate_b(stack_b);
 	}
 	else if (nbr <= stack_a->arr[right_mid]
 		&& (nbr >= stack_a->arr[middle]))
@@ -513,7 +510,7 @@ int		get_pos(int *arr, int n, int size)
 	int		i;
 	
 	i = -1;
-	while (i++ < size)
+	while (++i < size)
 		if (n == arr[i])
 			return(i);
 	return (i);
@@ -536,7 +533,25 @@ void	push_back(t_struct *stack_a, t_struct *stack_b, int n)
 {
 	while (1)
 	{
-		if ()
+		if (stack_b->stack[0] == stack_a->arr[n])
+		{
+			push_a(stack_b, stack_a);
+			break ;
+		}
+		else if (stack_b->stack[0] == stack_a->arr[n - 1])
+			push_a(stack_b, stack_a);
+		else if (stack_b->stack[0] == stack_a->arr[n - 2])
+		{
+			push_a(stack_b, stack_a);
+			rotate_a(stack_a);
+		}
+		else
+		{
+			if (get_pos(stack_b->stack, stack_a->arr[n], stack_b->length) > stack_b->length / 2)
+				revrotate_b(stack_b);
+			else
+				rotate_b(stack_b);
+		}
 	}
 }
 
@@ -544,11 +559,17 @@ void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 {
 	int		nbr;
 
-	while (stack_b->length > 0)
-	{
-		nbr = get_pos(stack_a->arr, find_bigger(stack_a->length, stack_a->length), stack_a->length);
-		push_back()
-	}
+	//while (stack_b->length > 0)
+	//{
+		nbr = get_pos(stack_a->arr, find_bigger(stack_b->stack, stack_b->length), stack_b->length);
+		printf("====>%d\n", nbr);
+		
+		//push_back(stack_a, stack_b, nbr);
+		//if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
+		//	swap_a(stack_a);
+		//if (stack_a->stack[stack_a->length - 1] < stack_a->arr[nbr])
+		//	revrotate_a(stack_a);
+	//}
 }
 
 void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
@@ -556,15 +577,17 @@ void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
 	int		chunk;
 	int		i;
 	int		current_len;
+	int		length;
 
 	chunk = 1;
 	stack_a->arr = init_arr(stack_a);
+	length = stack_a->length;
 	while (stack_a->length > 0)
 	{
 		i = -1;
 		current_len = stack_a->length;
 		while (++i < current_len)
-			push_chunk(stack_a, stack_b, divisor, chunk);
+			push_chunk(stack_a, stack_b, length,divisor, chunk);
 		chunk++;
 	}
 	push_chunk_back(stack_a, stack_b);
