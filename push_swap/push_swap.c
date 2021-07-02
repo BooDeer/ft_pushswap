@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/01 09:51:16 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/02 08:12:45 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -491,7 +491,6 @@ void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,int div, int ch
 	right_mid = get_index(length, div, chunk, 1);
 	middle = length / 2;
 	nbr = stack_a->stack[0];
-	printf("%d===%d===%d\n", middle, left_mid, right_mid);
 	if ((nbr >= stack_a->arr[left_mid])
 		&& (nbr < stack_a->arr[middle]))
 	{
@@ -523,7 +522,7 @@ int		find_biggest(int *arr, int size)
 
 	n = arr[0];
 	i = -1;
-	while (++i <= size)
+	while (++i < size)
 		if (n < arr[i])
 			n = arr[i];
 	return (n);
@@ -559,17 +558,15 @@ void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 {
 	int		nbr;
 
-	//while (stack_b->length > 0)
-	//{
-		nbr = get_pos(stack_a->arr, find_bigger(stack_b->stack, stack_b->length), stack_b->length);
-		printf("====>%d\n", nbr);
-		
-		//push_back(stack_a, stack_b, nbr);
-		//if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
-		//	swap_a(stack_a);
-		//if (stack_a->stack[stack_a->length - 1] < stack_a->arr[nbr])
-		//	revrotate_a(stack_a);
-	//}
+	while (stack_b->length > 0)
+	{
+		nbr = get_pos(stack_a->arr, find_biggest(stack_b->stack, stack_b->length), stack_b->length);
+		push_back(stack_a, stack_b, nbr);
+		if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
+			swap_a(stack_a);
+		if (stack_a->stack[stack_a->length - 1] < stack_a->arr[nbr])
+			revrotate_a(stack_a);
+	}
 }
 
 void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
@@ -601,6 +598,8 @@ void	order_list(t_struct *stack_a, t_struct *stack_b)
 		sort_five(stack_a, stack_b);
 	else if (stack_a->length <= 100)
 		sort_hundred(stack_a, stack_b, 6);
+	else if (stack_a->length > 100)
+		sort_hundred(stack_a,stack_b, 16);
 }
 
 
@@ -632,6 +631,7 @@ int		main(int ac, char **av)
 		return (0);	
 	}
 	a.length = ac -1;
+	a.arr_length = a.length;
 	b.length = 0;
 	ft_fill_list(&(a.stack), a.length, (av + 1));
 	ft_fill_list(&(b.stack), 0, 0);
@@ -641,7 +641,7 @@ int		main(int ac, char **av)
 		order_list(&a, &b);
 		//printf("The list is not ordered!\n");
 	}
-	print_stack(a, b);
+	//print_stack(a, b);
 	return (0);
 }
 
