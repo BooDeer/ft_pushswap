@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/02 09:40:06 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/02 19:27:13 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,136 +15,6 @@
 void	ft_putstr(char *str)
 {
 	write(1, str, ft_strlen(str));	
-}
-
-void	fill_list(int *num_list, int ac, int *av)
-{
-	int		i;
-
-	i = -1;
-	while (++i < ac)
-		num_list[i] = av[i];
-}
-
-/*
-*
-*	fills the array of integers in a list:
-*	@param num_list: the list to fill.
-*	@param ac: number of elements expected.
-*	@param av: the src list.
-*
-*/
-
-void	ft_fill_list(int **num_list, int ac, char **av)
-{
-	int		i;
-
-	(*num_list) = (int *)malloc(sizeof(int) * ac);
-	i = -1;
-	while (++i < ac)
-		(*num_list)[i] = ft_atoi(av[i]);
-	if (check_list(*num_list, ac))
-		printf("Error! Duplicatd argument\n"); // TODO: #1
-}
-
-void	swap_stack(int **num_list, int size)
-{
-	if (size > 1)
-	{
-		(*num_list)[0] = (*num_list)[0] + (*num_list)[1];
-		(*num_list)[1] = (*num_list)[0] - (*num_list)[1];
-		(*num_list)[0] = (*num_list)[0] - (*num_list)[1];
-	}
-}
-
-void	push_stack(t_struct *src, t_struct *dst) // TODO_HOME: Refactor the code to use less lines.
-{
-	int		*tmp_a;
-	int		*tmp_b;
-
-	if (src->length > 0)
-	{
-		tmp_a = (int *)malloc(sizeof(int) * src->length - 1);
-		fill_list(tmp_a, src->length - 1, &(src->stack[1]));
-		tmp_b = (int *)malloc(sizeof(int) * dst->length + 1);
-		tmp_b[0] = src->stack[0];
-		fill_list(&(tmp_b[1]), dst->length, dst->stack);
-		free(src->stack);
-		free(dst->stack);
-		src->stack = tmp_a;
-		dst->stack = tmp_b;
-		src->length--;
-		dst->length++;
-	}
-}
-
-void	rotate_stack(int *num_list, int	size)
-{
-	int		i;
-	int		tmp;
-	
-	if (size < 2)
-		return ;
-	i = -1;
-	tmp = num_list[0];
-	while (++i + 1 < size)
-	{
-		num_list[i] = num_list[i] + num_list[i + 1];
-		num_list[i + 1] = num_list[i] - num_list[i + 1];
-		num_list[i] = num_list[i] - num_list[i + 1];
-	}
-}
-
-void	revrotate_stack(int	*num_list, int size)
-{
-	int		i;
-	int		tmp;
-
-	if (size < 2)
-		return ;
-	i = 0;
-	tmp = num_list[0];
-	num_list[0] = num_list[size];
-	while (++i < size)
-	{
-		tmp = tmp + num_list[i];
-		num_list[i] = tmp - num_list[i];
-		tmp = tmp - num_list[i];
-	}
-	num_list[0] = tmp;
-}
-/*
-*
-*	Temporary function to test the actions.
-*	
-*	@param action: the value of the action, it can be one of the following
-*						-	sa: 1 | pa: 4
-*							pb :5 | ra: 6 | rb: 7 | rr: 8
-*							rr: 9 | rra:10| rrb:11| rrr: 12
-*
-*/
-
-
-void	dummy_actions(int action, t_struct *stack_a, t_struct *stack_b)
-{
-	switch (action)
-	{
-	case 1:
-		swap_stack(&(stack_a->stack), stack_a->length);
-		break;
-	case 2:
-		push_stack(stack_a, stack_b);
-		break;
-	case 3:
-		rotate_stack(stack_a->stack, stack_a->length);
-		break;
-	case 4:
-		revrotate_stack(stack_a->stack, stack_a->length);
-		break;
-	default:
-		break;
-	}
-	
 }
 
 void	print_stack(t_struct a, t_struct b)
@@ -176,41 +46,9 @@ void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
 	ft_putstr("rrr\n");
 }
 
-int		find_bigger(int	*list, int size)
-{
-	int		i;
-	int		j;
-	int		index;
 
-	j = list[0];
-	i = -1;
-	index = 0;
-	while (++i < size)
-		if (j < list[i])
-		{
-			j = list[i];
-			index = i;
-		}
-	return (index);
-}
 
-int		find_smallest(int *list, int size)
-{
-	int		i;
-	int		j;
-	int		index;
 
-	j = list[0];
-	i = -1;
-	index = 0;
-	while (++i < size)
-		if (j > list[i])
-		{
-			j = list[i];
-			index = i;
-		}
-	return (index);
-}
 // =============== Sorting list starts from below ===============
 
 void	sort_three(t_struct *stack_a, t_struct *stack_b)
@@ -292,15 +130,6 @@ void	bubble_sort(int *arr, int size)
 	return ;
 }
 
-int		*init_arr(t_struct *stack_a)
-{
-	int		*arr;
-	
-	arr = ft_calloc(sizeof(int), stack_a->length);
-	fill_list(arr, stack_a->length, stack_a->stack);
-	bubble_sort(arr, stack_a->length);
-	return (arr);
-}
 
 int		chunk_cal(int len, int chunk, int length, int sign)
 {
@@ -329,115 +158,15 @@ int		get_index(int length, int div, int chunk, int sign)
 	return (ret);
 }
 
-void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,int div, int chunk)
-{
-	int		left_mid;
-	int		right_mid;
-	int		middle;
-	int		nbr;
-	
-	left_mid = get_index(length, div, chunk, -1);
-	right_mid = get_index(length, div, chunk, 1);
-	middle = length / 2;
-	nbr = stack_a->stack[0];
-	if ((nbr >= stack_a->arr[left_mid])
-		&& (nbr < stack_a->arr[middle]))
-	{
-		push_b(stack_a, stack_b);
-		rotate_b(stack_b);
-	}
-	else if (nbr <= stack_a->arr[right_mid]
-		&& (nbr >= stack_a->arr[middle]))
-		push_b(stack_a, stack_b);
-	else
-		rotate_a(stack_a);
-}
 
-int		get_pos(int *arr, int n, int size)
-{
-	int		i;
-	
-	i = -1;
-	while (++i < size)
-		if (n == arr[i])
-			return(i);
-	return (i);
-}
 
-int		find_biggest(int *arr, int size)
-{
-	int		n;
-	int		i;
 
-	n = arr[0];
-	i = -1;
-	while (++i < size)
-		if (n < arr[i])
-			n = arr[i];
-	return (n);
-}
 
-void	push_back(t_struct *stack_a, t_struct *stack_b, int n)
-{
-	while (1)
-	{
-		if (stack_b->stack[0] == stack_a->arr[n])
-		{
-			push_a(stack_b, stack_a);
-			break ;
-		}
-		else if (stack_b->stack[0] == stack_a->arr[n - 1])
-			push_a(stack_b, stack_a);
-		else if (stack_b->stack[0] == stack_a->arr[n - 2])
-		{
-			push_a(stack_b, stack_a);
-			rotate_a(stack_a);
-		}
-		else
-		{
-			if (get_pos(stack_b->stack, stack_a->arr[n], stack_b->length) > stack_b->length / 2)
-				revrotate_b(stack_b);
-			else
-				rotate_b(stack_b);
-		}
-	}
-}
 
-void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
-{
-	int		nbr;
 
-	while (stack_b->length > 0)
-	{
-		nbr = get_pos(stack_a->arr, find_biggest(stack_b->stack, stack_b->length), stack_b->length);
-		push_back(stack_a, stack_b, nbr);
-		if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
-			swap_a(stack_a);
-		if (stack_a->stack[stack_a->length - 1] < stack_a->arr[nbr])
-			revrotate_a(stack_a);
-	}
-}
 
-void	chunk_algo(t_struct *stack_a, t_struct *stack_b, int divisor)
-{
-	int		chunk;
-	int		i;
-	int		current_len;
-	int		length;
 
-	chunk = 1;
-	stack_a->arr = init_arr(stack_a);
-	length = stack_a->length;
-	while (stack_a->length > 0)
-	{
-		i = -1;
-		current_len = stack_a->length;
-		while (++i < current_len)
-			push_chunk(stack_a, stack_b, length,divisor, chunk);
-		chunk++;
-	}
-	push_chunk_back(stack_a, stack_b);
-}
+
 
 void	order_list(t_struct *stack_a, t_struct *stack_b)
 {
