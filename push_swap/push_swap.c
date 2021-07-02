@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/02 08:12:45 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/02 09:40:06 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,83 +17,10 @@ void	ft_putstr(char *str)
 	write(1, str, ft_strlen(str));	
 }
 
-int		list_length(int *list) // Not needed anymore (You must save the length from the moment you have it)
-{
-	int		i;
-	
-	if (list == NULL)
-		return (0);
-	i = -1;
-	while(list[++i])
-		;
-	return (i);
-}
-
-int		check_dup(int num, int *num_list, int size)
-{
-	int		i;
-	int		check;
-
-	check = 0;
-	i = -1;
-	while (++i < size)
-		if (num_list[i] == num)
-		{
-			check++;
-			if (check > 1)
-				return (1);			
-		}
-	return (0);
-}
-
-/*
-*
-*	Check if any element of the list is duplicated or
-*	if the list contains any erros.
-*	@param num_list: the list to check
-*/
-
-int		check_list(int *num_list, int size)
-{
-	int		i;
-
-	i = -1;
-	while (++i < size)
-		if (check_dup(num_list[i], num_list, size))
-			return (1);
-	return (0);
-}
-
-int		check_str(char *str)
-{
-	int		i;
-
-	i = -1;
-	if (str[0] == '-' || str[0] == '+')
-		i++;
-	while (str[++i])
-		if (!ft_isdigit(str[i]))
-			return (1);
-	return (0);
-}
-
-int		nbr_only(char **arr)
-{
-	int	i;
-
-	i = -1;
-	while (arr[++i])
-		if (check_str(arr[i]) || (ft_atoi(arr[i]) == -1 &&
-		ft_strcmp(arr[i], "-1")))
-			return (1);
-	return (0);
-}
-
 void	fill_list(int *num_list, int ac, int *av)
 {
 	int		i;
 
-	//(*num_list) = (int *)malloc(sizeof(int) * ac); // the allocation happens before the call of this function
 	i = -1;
 	while (++i < ac)
 		num_list[i] = av[i];
@@ -118,26 +45,6 @@ void	ft_fill_list(int **num_list, int ac, char **av)
 		(*num_list)[i] = ft_atoi(av[i]);
 	if (check_list(*num_list, ac))
 		printf("Error! Duplicatd argument\n"); // TODO: #1
-}
-
-/*
-*
-*	Check if the list is ordered in an incrementing manner.
-*/
-
-int		check_order(int *num_list, int size)
-{
-	int		i;
-
-	i = -1;
-	while (++i < size )
-	{
-		if (num_list[i] < num_list[i + 1])
-			continue ;
-		else
-			return (1);
-	}
-	return (0);
 }
 
 void	swap_stack(int **num_list, int size)
@@ -258,67 +165,9 @@ void	print_stack(t_struct a, t_struct b)
 }
 
 
-void	swap_a(t_struct *stack_a)
-{
-	swap_stack(&(stack_a->stack), stack_a->length);
-	ft_putstr("sa\n");
-}
 
-void	swap_b(t_struct *stack_b)
-{
-	swap_stack(&(stack_b->stack), stack_b->length);
-	ft_putstr("sb\n");
-}
 
-void	swap_ab(t_struct *stack_a, t_struct *stack_b)
-{
-	swap_stack(&(stack_a->stack), stack_a->length);
-	swap_stack(&(stack_b->stack), stack_b->length);
-	ft_putstr("ss\n");
-}
 
-void	push_a(t_struct *stack_b, t_struct *stack_a)
-{
-	push_stack(stack_b, stack_a);
-	ft_putstr("pa\n");
-}
-
-void	push_b(t_struct *stack_a, t_struct *stack_b)
-{
-	push_stack(stack_a, stack_b);
-	ft_putstr("pb\n");
-}
-
-void	rotate_a(t_struct *stack_a)
-{
-	rotate_stack(stack_a->stack, stack_a->length);
-	ft_putstr("ra\n");
-}
-
-void	rotate_b(t_struct *stack_b)
-{
-	rotate_stack(stack_b->stack, stack_b->length);
-	ft_putstr("rb\n");
-}
-
-void	rotate_ab(t_struct *stack_a, t_struct *stack_b)
-{
-	rotate_stack(stack_a->stack, stack_a->length);
-	rotate_stack(stack_b->stack, stack_b->length);
-	ft_putstr("rr\n");
-}
-
-void	revrotate_a(t_struct *stack_a)
-{
-	revrotate_stack(stack_a->stack, stack_a->length);
-	ft_putstr("rra\n");
-}
-
-void	revrotate_b(t_struct *stack_b)
-{
-	revrotate_stack(stack_b->stack, stack_b->length);
-	ft_putstr("rrb\n");
-}
 
 void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
 {
@@ -569,7 +418,7 @@ void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 	}
 }
 
-void	sort_hundred(t_struct *stack_a, t_struct *stack_b, int divisor)
+void	chunk_algo(t_struct *stack_a, t_struct *stack_b, int divisor)
 {
 	int		chunk;
 	int		i;
@@ -597,9 +446,9 @@ void	order_list(t_struct *stack_a, t_struct *stack_b)
 	else if (stack_a->length <= 5)
 		sort_five(stack_a, stack_b);
 	else if (stack_a->length <= 100)
-		sort_hundred(stack_a, stack_b, 6);
+		chunk_algo(stack_a, stack_b, 6);
 	else if (stack_a->length > 100)
-		sort_hundred(stack_a,stack_b, 16);
+		chunk_algo(stack_a,stack_b, 16);
 }
 
 
@@ -639,7 +488,6 @@ int		main(int ac, char **av)
 	if (check_order(a.stack, a.length))
 	{
 		order_list(&a, &b);
-		//printf("The list is not ordered!\n");
 	}
 	//print_stack(a, b);
 	return (0);
