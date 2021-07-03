@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 19:18:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/02 19:20:40 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/03 16:45:35 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	swap_stack(int **num_list, int size)
 	}
 }
 
-void	push_stack(t_struct *src, t_struct *dst) // TODO_HOME: Refactor the code to use less lines.
+void	push_stack(t_struct *src, t_struct *dst)
 {
 	int		*tmp_a;
 	int		*tmp_b;
@@ -47,7 +47,7 @@ void	rotate_stack(int *num_list, int	size)
 {
 	int		i;
 	int		tmp;
-	
+
 	if (size < 2)
 		return ;
 	i = -1;
@@ -77,4 +77,11 @@ void	revrotate_stack(int	*num_list, int size)
 		tmp = tmp - num_list[i];
 	}
 	num_list[0] = tmp;
+}
+
+void	revrotate_ab(t_struct *stack_a, t_struct *stack_b)
+{
+	revrotate_stack(stack_a->stack, stack_a->length);
+	revrotate_stack(stack_b->stack, stack_b->length);
+	ft_putstr("rrr\n");
 }

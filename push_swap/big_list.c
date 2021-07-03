@@ -6,21 +6,22 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 19:23:41 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/02 19:24:29 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/03 16:44:35 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
 
-void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,int div, int chunk)
+void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,
+int tab[2])
 {
 	int		left_mid;
 	int		right_mid;
 	int		middle;
 	int		nbr;
-	
-	left_mid = get_index(length, div, chunk, -1);
-	right_mid = get_index(length, div, chunk, 1);
+
+	left_mid = get_index(length, tab[0], tab[1], -1);
+	right_mid = get_index(length, tab[0], tab[1], 1);
 	middle = length / 2;
 	nbr = stack_a->stack[0];
 	if ((nbr >= stack_a->arr[left_mid])
@@ -54,7 +55,8 @@ void	push_back(t_struct *stack_a, t_struct *stack_b, int n)
 		}
 		else
 		{
-			if (get_pos(stack_b->stack, stack_a->arr[n], stack_b->length) > stack_b->length / 2)
+			if (get_pos(stack_b->stack, stack_a->arr[n], stack_b->length)
+				> stack_b->length / 2)
 				revrotate_b(stack_b);
 			else
 				rotate_b(stack_b);
@@ -68,7 +70,8 @@ void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 
 	while (stack_b->length > 0)
 	{
-		nbr = get_pos(stack_a->arr, find_biggest(stack_b->stack, stack_b->length), stack_b->length);
+		nbr = get_pos(stack_a->arr, find_biggest(stack_b->stack,
+					stack_b->length), stack_b->length);
 		push_back(stack_a, stack_b, nbr);
 		if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
 			swap_a(stack_a);
@@ -83,6 +86,7 @@ void	chunk_algo(t_struct *stack_a, t_struct *stack_b, int divisor)
 	int		i;
 	int		current_len;
 	int		length;
+	int		tab[2];
 
 	chunk = 1;
 	stack_a->arr = init_arr(stack_a);
@@ -91,8 +95,10 @@ void	chunk_algo(t_struct *stack_a, t_struct *stack_b, int divisor)
 	{
 		i = -1;
 		current_len = stack_a->length;
+		tab[0] = divisor;
+		tab[1] = chunk;
 		while (++i < current_len)
-			push_chunk(stack_a, stack_b, length,divisor, chunk);
+			push_chunk(stack_a, stack_b, length, tab);
 		chunk++;
 	}
 	push_chunk_back(stack_a, stack_b);

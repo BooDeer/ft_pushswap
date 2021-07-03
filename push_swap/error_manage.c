@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 09:17:27 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/02 09:23:22 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/03 16:45:01 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,6 @@ int	nbr_only(char **arr)
 			return (1);
 	return (0);
 }
-
-/*
-*
-*	Check if the list is ordered in an incrementing manner.
-*/
 
 int	check_order(int *num_list, int size)
 {
