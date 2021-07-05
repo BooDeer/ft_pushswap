@@ -6,15 +6,15 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 12:50:21 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/10/28 13:57:33 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:42:24 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_count(int n)
+static int	ft_count(int n)
 {
-	int count;
+	int	count;
 
 	count = 1;
 	if (n < 0)
@@ -29,7 +29,7 @@ static int		ft_count(int n)
 	return (count);
 }
 
-static char		*print_number(char *number, size_t len, unsigned int nb)
+static char	*print_number(char *number, size_t len, unsigned int nb)
 {
 	number[--len] = '\0';
 	while (nb != '\0' && len > 0)
@@ -40,7 +40,7 @@ static char		*print_number(char *number, size_t len, unsigned int nb)
 	return (number);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int				nb;
 	size_t			len;

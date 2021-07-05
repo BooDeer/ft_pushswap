@@ -6,13 +6,13 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 16:44:59 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/11/26 17:15:02 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:51:51 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strnstr(const char *hay, const char *need, size_t len)
+char	*ft_strnstr(const char *hay, const char *need, size_t len)
 {
 	size_t				i;
 	size_t				j;

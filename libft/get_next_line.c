@@ -3,109 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mhalli <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/28 20:26:22 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/04/26 14:25:17 by hboudhir         ###   ########.fr       */
+/*   Created: 2020/02/09 01:13:38 by mhalli            #+#    #+#             */
+/*   Updated: 2020/02/09 03:08:45 by mhalli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "get_next_line.h"
 
-size_t		ft_strlen(const char *s)
+char	*ft_fill(int fd, char *str)
 {
-	size_t		i;
+	char	*buffer;
+	int		rd;
+	char	*temp;
 
-	i = 0;
-	if (!s)
+	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
 		return (0);
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-int			check_reminder(char *reminder, char **line, char **buff)
-{
-	char *p_n;
-	char *tmp;
-
-	p_n = NULL;
-	*line = ft_strdup("");
-	if (reminder)
-	{
-		if ((p_n = ft_strchr(reminder, '\n')))
-		{
-			*p_n = '\0';
-			free(*line);
-			*line = ft_strdup(reminder);
-			ft_strcpy(reminder, ++p_n);
-			free(*buff);
-			return (1);
-		}
-		else
-		{
-			tmp = *line;
-			*line = ft_strdup(reminder);
-			ft_memset(reminder, 0, ft_strlen(reminder));
-			free(tmp);
-		}
-	}
-	return (0);
-}
-
-int			check_return(int br, char **reminder, char **line)
-{
-	if (!br && !ft_strlen(*reminder))
-	{
-		free(*reminder);
-		*reminder = NULL;
+	if (fd < 0 || read(fd, buffer, 0) < 0 || BUFFER_SIZE < 1)
 		return (0);
-	}
-	if (br || ft_strlen(*reminder) || ft_strlen(*line))
-		return (1);
-	return (br);
-}
-
-void		get_next_line2(char *ptr, char **remind, char ***line, char **buf)
-{
-	char	*tmp;
-
-	*ptr++ = '\0';
-	tmp = *remind;
-	*remind = ft_strdup(ptr);
-	free(tmp);
-	tmp = **line;
-	**line = ft_strjoin_gnl(**line, *buf);
-	free(tmp);
-	free(*buf);
-}
-
-int			get_next_line(int fd, char **line)
-{
-	static char		*reminder;
-	char			*buffer;
-	int				br;
-	char			*ptr;
-	char			*tmp;
-
-	if (BUFFER_SIZE < 0 || fd < 0 || read(fd, NULL, 0) < 0
-	|| !(buffer = malloc((BUFFER_SIZE + 1))))
-		return (-1);
-	if (check_reminder(reminder, line, &buffer))
-		return (1);
-	while ((br = read(fd, buffer, BUFFER_SIZE)))
+	if (str == NULL)
+		str = ft_strdup("");
+	while (!(ft_strchr(str, '\n')))
 	{
-		buffer[br] = '\0';
-		if ((ptr = ft_strchr(buffer, '\n')))
-		{
-			get_next_line2(ptr, &reminder, &line, &buffer);
-			return (1);
-		}
-		tmp = *line;
-		*line = ft_strjoin_gnl(*line, buffer);
-		free(tmp);
+		rd = read(fd, buffer, BUFFER_SIZE);
+		if (rd < 0)
+			return (0);
+		buffer[rd] = '\0';
+		temp = str;
+		str = ft_strjoin(str, buffer);
+		free(temp);
+		if (rd == 0)
+			break ;
 	}
 	free(buffer);
-	return (check_return(br, &reminder, line));
+	return (str);
+}
+
+int	get_next_line(int fd, char **line)
+{
+	static char		*str;
+	char			*temp;
+	int				len;
+
+	len = 0;
+	str = ft_fill(fd, str);
+	if (!line || !str)
+		return (-1);
+	if (ft_strchr(str, '\n'))
+	{
+		while (str[len] != '\n')
+			len++;
+		temp = str;
+		*line = ft_substr(str, 0, len);
+		str = ft_strdup(str + len + 1);
+		free(temp);
+		return (1);
+	}
+	else
+	{
+		*line = ft_strdup(str);
+		free(str);
+		str = NULL;
+		return (0);
+	}
 }

@@ -6,15 +6,15 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 19:30:15 by hboudhir          #+#    #+#             */
-/*   Updated: 2019/10/28 13:58:02 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/05 10:46:59 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_word_size(char *str, char c)
+static int	ft_word_size(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i] != c && str[i] != '\0')
@@ -24,11 +24,11 @@ static int		ft_word_size(char *str, char c)
 	return (i);
 }
 
-static int		ft_countwd(char *str, char c)
+static int	ft_countwd(char *str, char c)
 {
-	int i;
-	int j;
-	int k;
+	int	i;
+	int	j;
+	int	k;
 
 	k = 0;
 	i = 0;
@@ -50,22 +50,21 @@ static int		ft_countwd(char *str, char c)
 	return (k);
 }
 
-static int		*ft_words(char *str, char c)
+static int	*ft_words(char *str, char c)
 {
-	int i;
-	int *s;
-	int j;
-	int k;
-	int z;
+	int	i;
+	int	*s;
+	int	k;
+	int	z;
 
-	s = (int*)malloc(4 * (ft_countwd(str, c) + 1));
+	s = (int *)malloc(4 * (ft_countwd(str, c) + 1));
 	if (!s)
 		return (NULL);
 	s[0] = 0;
 	k = 0;
 	i = -1;
-	j = 1;
 	while (str[++i])
+	{
 		if (str[i] != c && str[i] != '\0')
 		{
 			z = i - 1;
@@ -75,14 +74,15 @@ static int		*ft_words(char *str, char c)
 				s[0]++;
 			}
 		}
+	}
 	return (s);
 }
 
-static char		**ft_hate_norme(int *z, char const *s, char c, char **div)
+static char	**ft_hate_norme(int *z, char const *s, char c, char **div)
 {
-	int i;
-	int j;
-	int len;
+	int	i;
+	int	j;
+	int	len;
 
 	i = -1;
 	while (++i < z[0])
@@ -105,7 +105,7 @@ static char		**ft_hate_norme(int *z, char const *s, char c, char **div)
 	return (div);
 }
 
-char			**ft_split(char const *s, char c)
+char	**ft_split(char const *s, char c)
 {
 	int		*z;
 	int		i;
