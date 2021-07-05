@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/03 16:36:25 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/03 17:16:48 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/05 08:25:32 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	bubble_sort(int *arr, int size)
 {
 	int		i;
 	int		j;
-	int		tmp;
 
 	i = 0;
 	j = 0;
@@ -73,7 +72,7 @@ int	get_index(int length, int div, int chunk, int sign)
 void	order_list(t_struct *stack_a, t_struct *stack_b)
 {
 	if (stack_a->length <= 3)
-		sort_three(stack_a, stack_b);
+		sort_three(stack_a);
 	else if (stack_a->length <= 5)
 		sort_five(stack_a, stack_b);
 	else if (stack_a->length <= 100)

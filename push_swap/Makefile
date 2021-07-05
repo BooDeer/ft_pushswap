@@ -5,35 +5,38 @@
 #                                                     +:+ +:+         +:+      #
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/04/21 15:58:41 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 09:38:35 by hboudhir         ###   ########.fr        #
+#    Created: 2021/07/05 09:34:05 by hboudhir          #+#    #+#              #
+#    Updated: 2021/07/05 09:54:37 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC 		= gcc
-FLAGS	= -Wall -Werror -Wextra
+cc 		= gcc
+FLAGS	= -Wall -Wextra -Werror
 AR		= ar -rc
-SRC		= 
+SRC		= big_list.c error_manage.c instructions.c push_swap.c simple_action.c simple_action2.c \
+		  stack_handler.c utils_01.c utils.c
 PROGRAM = push_swap
 NAME	= push_swap.a
-MAKE 	= make -C
-all:	$(NAME)
+LIB		= ../libft/libft.a
+all: $(PROGRAM)
 
-%.o:	%.c
-	cd push_swap/ ; echo "I'm in!"; \
-	$(CC) -c $(FLAGS) $<
+%.o: %.c
+	@$(CC) -c $(FLAGS) $<
 
-$(NAME): $(SRC:.c=.o)
-	@echo "Creating the program."
-	$(MAKE) libft
+$(PROGRAM): $(SRC:.c=.o)
+	@echo "[Push_swap] ===> Building the program."
+	@make -C ../libft
 	@$(AR) $(NAME) $(SRC:.c=.o)
 	ranlib $(NAME)
-	$(CC) $(FLAGS) -o $(PROGRAM) $(NAME)
+	$(CC) $(FLAGS) -o $(PROGRAM) $(NAME) $(LIB)
 
 clean:
-	@rm  $(SRC:.c=.o) $(NAME)
-	@make clean -C libft 
-fclean: clean
-	@rm  $(PROGRAM)
+	@echo "[Push_swap ===> cleaning object files.]"
+	@rm $(SRC:.c=.o) $(NAME)
+	@make clean -C ../libft
 
-re:	fclean all
+fclean: clean
+	@echo "[Push_swap ===> cleaning everything.]"
+	@rm $(PROGRAM)
+
+re: fclean all
