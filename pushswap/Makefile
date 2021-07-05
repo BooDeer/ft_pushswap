@@ -6,7 +6,7 @@
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 09:34:05 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 09:54:37 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/07/05 10:35:46 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,12 +27,13 @@ $(PROGRAM): $(SRC:.c=.o)
 	@echo "[Push_swap] ===> Building the program."
 	@make -C ../libft
 	@$(AR) $(NAME) $(SRC:.c=.o)
-	ranlib $(NAME)
-	$(CC) $(FLAGS) -o $(PROGRAM) $(NAME) $(LIB)
+	@ranlib $(NAME)
+	@$(CC) $(FLAGS) -o $(PROGRAM) $(NAME) $(LIB)
+	@mv $(PROGRAM) ..
 
 clean:
 	@echo "[Push_swap ===> cleaning object files.]"
-	@rm $(SRC:.c=.o) $(NAME)
+	@rm -rf $(SRC:.c=.o) $(NAME)
 	@make clean -C ../libft
 
 fclean: clean

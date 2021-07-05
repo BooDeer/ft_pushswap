@@ -6,7 +6,7 @@
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/15 19:10:52 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 08:25:50 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/07/05 10:22:48 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ $(NAME): $(SRC:.c=.o)
 	@ranlib $(NAME)
 
 clean:
-	@echo "[Libft] ==> Cleaning object files . . . . ."
+	@echo "[Libft] ===> cleaning object files."
 	@rm -rf $(SRC:.c=.o) $(OBJB)
 
 fclean: clean
@@ -52,4 +52,3 @@ bonus:
 	@$(AR) rc $(NAME) $(OBJB)
 
 re: fclean all
-	@echo "[Libft] ==> Recreating the library . . . . ."o

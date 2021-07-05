@@ -6,7 +6,7 @@
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 15:58:41 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 09:38:35 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/07/05 10:21:49 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,13 @@ SRC		=
 PROGRAM = push_swap
 NAME	= push_swap.a
 MAKE 	= make -C
-all:	$(NAME)
+all:	$(PROGRAM)
 
-%.o:	%.c
-	cd push_swap/ ; echo "I'm in!"; \
-	$(CC) -c $(FLAGS) $<
-
-$(NAME): $(SRC:.c=.o)
-	@echo "Creating the program."
-	$(MAKE) libft
-	@$(AR) $(NAME) $(SRC:.c=.o)
-	ranlib $(NAME)
-	$(CC) $(FLAGS) -o $(PROGRAM) $(NAME)
+$(PROGRAM):
+	@make -C pushswap/
 
 clean:
-	@rm  $(SRC:.c=.o) $(NAME)
+	@make clean -C pushswap
 	@make clean -C libft 
 fclean: clean
 	@rm  $(PROGRAM)
