@@ -6,40 +6,12 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:35:55 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/06 17:27:22 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/06 18:55:33 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../pushswap.h"
-#include "../libft/libft.h"
-#include "../libft/get_next_line.h"
 
-int		exit_program(char *error_msg, int fd, int exit_code)
-{
-	write(fd, error_msg, ft_strlen(error_msg));
-	return (exit_code);
-}
-
-int		check_arg(char *arg)
-{
-	int		i;
-	long long	nbr_check;
-	
-	i = -1;
-	while (arg[++i])
-	{
-		if (ft_isdigit(arg[i]))
-			continue ;
-		else
-			return (0);
-	}
-	nbr_check = ft_atoi(arg);
-	if (nbr_check == -1)
-		exit_program("Error: number is too big\n", 1, 1);
-	else if (nbr_check == -2)
-		exit_program("Error: number is too small\n", 1, 1);
-	return (1);
-}
 
 int	check_action(char *a)
 {
@@ -98,11 +70,6 @@ void	exec_instruction(t_struct *stack_a, t_struct *stack_b, char *buff)
 	
 }
 
-void	print_stack(int *stack, int size)
-{
-	for (int i = 0; i < size; i++)
-		printf("%d\n", stack[i]);
-}
 int		main(int ac, char **av)
 {
 	char	*buff;
