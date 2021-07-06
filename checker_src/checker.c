@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:35:55 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/06 19:31:50 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/06 20:25:44 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ int	check_action(char *a)
 
 static void	exec_instruction2(t_struct *stack_a, t_struct *stack_b, char *buff)
 {
-	if (!strcmp(buff, "rr"))
+	if (!ft_strcmp(buff, "rr"))
 	{
 		rotate_stack(stack_a->stack, stack_a->length);
 		rotate_stack(stack_b->stack, stack_b->length);
 	}
-	else if (!strcmp(buff, "rra"))
+	else if (!ft_strcmp(buff, "rra"))
 		revrotate_stack(stack_a->stack, stack_a->length);
-	else if (!strcmp(buff, "rrb"))
+	else if (!ft_strcmp(buff, "rrb"))
 		revrotate_stack(stack_b->stack, stack_b->length);
-	else if (!strcmp(buff, "rrr"))
+	else if (!ft_strcmp(buff, "rrr"))
 	{
 		revrotate_stack(stack_a->stack, stack_a->length);
 		revrotate_stack(stack_b->stack, stack_b->length);
@@ -52,22 +52,22 @@ static void	exec_instruction2(t_struct *stack_a, t_struct *stack_b, char *buff)
 
 void	exec_instruction(t_struct *stack_a, t_struct *stack_b, char *buff)
 {
-	if (!strcmp(buff, "sa"))
+	if (!ft_strcmp(buff, "sa"))
 		swap_stack(&(stack_a->stack), stack_a->length);
-	else if (!strcmp(buff, "sb"))
+	else if (!ft_strcmp(buff, "sb"))
 		swap_stack(&(stack_b->stack), stack_b->length);
-	else if (!strcmp(buff, "ss"))
+	else if (!ft_strcmp(buff, "ss"))
 	{
 		swap_stack(&(stack_a->stack), stack_a->length);
 		swap_stack(&(stack_b->stack), stack_b->length);
 	}
-	else if (!strcmp(buff, "pa"))
+	else if (!ft_strcmp(buff, "pa"))
 		push_stack(stack_b, stack_a);
-	else if (!strcmp(buff, "pb"))
+	else if (!ft_strcmp(buff, "pb"))
 		push_stack(stack_a, stack_b);
-	else if (!strcmp(buff, "ra"))
+	else if (!ft_strcmp(buff, "ra"))
 		rotate_stack(stack_a->stack, stack_a->length);
-	else if (!strcmp(buff, "rb"))
+	else if (!ft_strcmp(buff, "rb"))
 		rotate_stack(stack_b->stack, stack_b->length);
 	exec_instruction2(stack_a, stack_b, buff);
 }

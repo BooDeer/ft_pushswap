@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/06 19:30:28 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/06 19:42:49 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/06 20:29:44 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	ft_read_line(int *rt, char **buff, t_struct *stack_a, t_struct *stack_b)
 	}
 	else
 		exec_instruction(stack_a, stack_b, *buff);
+	free(*buff);
 }
