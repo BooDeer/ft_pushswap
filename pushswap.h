@@ -32,7 +32,8 @@ void	rotate_b(t_struct *stack_b);
 void	rotate_ab(t_struct *stack_a, t_struct *stack_b);
 void	revrotate_a(t_struct *stack_a);
 void	revrotate_b(t_struct *stack_b);
-void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length, int tab[2]);
+void	push_chunk(t_struct *stack_a, t_struct *stack_b, int length,
+			int tab[2]);
 void	push_back(t_struct *stack_a, t_struct *stack_b, int n);
 int		*init_arr(t_struct *stack_a);
 void	push_chunk_back(t_struct *stack_a, t_struct *stack_b);
@@ -57,10 +58,9 @@ void	push_stack(t_struct *src, t_struct *dst);
 void	rotate_stack(int *num_list, int	size);
 void	revrotate_stack(int	*num_list, int size);
 void	revrotate_ab(t_struct *stack_a, t_struct *stack_b);
-
-
-
-
-
-
+void	init_stack(t_struct *stack_a, t_struct *stack_b, int ac, char **av);
+void	ft_read_line(int *rt, char **buff, t_struct *stack_a,
+			t_struct *stack_b);
+int		check_action(char *a);
+void	exec_instruction(t_struct *stack_a, t_struct *stack_b, char *buff);
 #endif

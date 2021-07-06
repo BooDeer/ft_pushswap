@@ -6,28 +6,24 @@
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/21 16:04:03 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 11:11:11 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/07/06 19:51:39 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC 		= gcc
 FLAGS	= -Wall -Werror -Wextra
-AR		= ar -rc
-SRC		= checker.c
+SRC		= checker.c checker2.c
 PROGRAM = checker
-NAME	= checker.a
-LIB 	= ../libft/libft.a
+LIB 	= ../libft/libft.a ../pushswap/push_swap.a
 all:	$(PROGRAM)
 
-%.o:	%.c
-	$(CC) -c $(FLAGS) $<
-
-$(NAME): $(SRC:.c=.o)
+$(PROGRAM):  checker.c checker2.c
 	@echo "[Checker] ===> creating the program."
 	@make -C ../libft
-	@$(AR) $(NAME) $(SRC:.c=.o)
-	@ranlib $(NAME)
-	$(CC) $(FLAGS) -o $(PROGRAM) $(NAME) $(LIB)
+	@make -C ../pushswap
+	@rm ../push_swap
+	@$(CC) $(FLAGS) -o $(PROGRAM) $(NAME) $(LIB) checker.c checker2.c
+	@mv $(PROGRAM) ..
 
 clean:
 	@make clean -C ../libft

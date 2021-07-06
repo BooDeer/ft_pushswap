@@ -6,7 +6,7 @@
 #    By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/05 09:34:05 by hboudhir          #+#    #+#              #
-#    Updated: 2021/07/05 11:55:59 by hboudhir         ###   ########.fr        #
+#    Updated: 2021/07/06 19:35:47 by hboudhir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ all: $(PROGRAM)
 	@$(CC) -c $(FLAGS) $<
 
 $(PROGRAM): $(SRC:.c=.o)
-	@echo "[Push_swap] ===> Building the program."
+	@echo "[Push_swap] ===> creating the program."
 	@make -C ../libft
 	@$(AR) $(NAME) $(SRC:.c=.o)
 	@ranlib $(NAME)
