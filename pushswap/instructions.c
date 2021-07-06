@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 19:18:32 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/03 16:45:35 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/06 16:42:50 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ void	push_stack(t_struct *src, t_struct *dst)
 	if (src->length > 0)
 	{
 		tmp_a = (int *)malloc(sizeof(int) * src->length - 1);
-		fill_list(tmp_a, src->length - 1, &(src->stack[1]));
 		tmp_b = (int *)malloc(sizeof(int) * dst->length + 1);
+		if (!tmp_a || !tmp_b)
+			exit_msg(2, "Allocation failed\n", 1);
+		fill_list(tmp_a, src->length - 1, &(src->stack[1]));
 		tmp_b[0] = src->stack[0];
 		fill_list(&(tmp_b[1]), dst->length, dst->stack);
 		free(src->stack);

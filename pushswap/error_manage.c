@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 09:17:27 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/03 16:45:01 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/06 18:51:36 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	check_order(int *num_list, int size)
 	int		i;
 
 	i = -1;
-	while (++i < size)
+	while (++i < size && i + 1 < size)
 	{
 		if (num_list[i] < num_list[i + 1])
 			continue ;

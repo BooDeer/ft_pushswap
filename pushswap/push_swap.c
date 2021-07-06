@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 15:38:20 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/05 08:24:42 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/05 11:54:51 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,4 @@ void	sort_five(t_struct *stack_a, t_struct *stack_b)
 		push_a(stack_b, stack_a);
 }
 
-int	main(int ac, char **av)
-{
-	t_struct	a;
-	t_struct	b;
 
-	if (nbr_only(av + 1))
-		exit_msg(2, "Error\n", 1);
-	a.length = ac - 1;
-	a.arr_length = a.length;
-	b.length = 0;
-	ft_fill_list(&(a.stack), a.length, (av + 1));
-	ft_fill_list(&(b.stack), 0, 0);
-	if (check_order(a.stack, a.length))
-	{
-		order_list(&a, &b);
-	}
-	return (0);
-}
