@@ -6,7 +6,7 @@
 /*   By: hboudhir <hboudhir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/02 19:23:41 by hboudhir          #+#    #+#             */
-/*   Updated: 2021/07/03 16:44:35 by hboudhir         ###   ########.fr       */
+/*   Updated: 2021/07/12 17:44:56 by hboudhir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	push_chunk_back(t_struct *stack_a, t_struct *stack_b)
 		nbr = get_pos(stack_a->arr, find_biggest(stack_b->stack,
 					stack_b->length), stack_b->length);
 		push_back(stack_a, stack_b, nbr);
-		if (stack_a->stack[1] && stack_a->stack[0] > stack_a->stack[1])
+		if (stack_a->length > 1 && stack_a->stack[0] > stack_a->stack[1])
 			swap_a(stack_a);
 		if (stack_a->stack[stack_a->length - 1] < stack_a->arr[nbr])
 			revrotate_a(stack_a);
